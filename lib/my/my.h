@@ -43,14 +43,14 @@ struct btree {
 typedef struct btree btree_t;
 
 typedef struct node {
-    struct node *next;
-    struct node *prev;
-    void *data;
+    struct node *n;
+    struct node *p;
+    void *d;
 } node_t;
 
 typedef struct list {
-    struct node *first;
-    struct node *last;
+    node_t *head;
+    node_t *tail;
 } list_t;
 
 typedef struct file_desc_s {
@@ -69,6 +69,28 @@ void btree_destroy(btree_t *);
 void btree_apply_infix(btree_t *, long long int (*)(char *));
 void btree_apply_prefix(btree_t *, long long int (*)(char *));
 void btree_apply_postfix(btree_t *root, long long int (*)(char *));
+
+
+list_t *list_create(node_t *);
+node_t *node_create(void *);
+void node_rm(node_t *);
+node_t *list_cut_node(list_t *, node_t *);
+void *list_a_cut_node(list_t *, node_t *);
+
+list_t *list_append(list_t *, list_t *);
+list_t *list_prepend(list_t *, list_t *);
+list_t *list_n_append(list_t *, node_t *);
+list_t *list_n_prepend(list_t *, node_t *);
+
+void list_rm(list_t *);
+list_t *list_a_append(list_t *, void *);
+list_t *list_a_prepend(list_t *, void *);
+
+node_t *list_pop_head(list_t *);
+node_t *list_pop_tail(list_t *);
+void *list_pop_a_head(list_t *);
+void *list_pop_a_tail(list_t *);
+
 
 int my_printf(char const *, ...);
 
