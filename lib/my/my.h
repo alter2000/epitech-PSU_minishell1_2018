@@ -56,7 +56,6 @@ typedef struct list {
 typedef struct file_desc_s {
     int fd;
     int ridx;
-    int rbuflen;
     int rbuf[READ_SIZE + 2];
     struct file_desc_s *next;
 } file_desc_t;

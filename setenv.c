@@ -11,7 +11,7 @@ void cmd_setenv(int ac, char **av, sh_t *sh)
 {
     if (ac == 1) {
         for (dict_t *d = sh->env; d; d = d->next)
-            my_printf("%s=%2\n", d->k, d->v);
+            my_printf("%s=%S\n", d->k, d->v);
         sh->exc = 0;
     } else if (ac == 3) {
         dict_push(sh->env, my_strdup(av[1]), my_strdup(av[2]));
@@ -26,6 +26,7 @@ void cmd_unsetenv(int ac, char **av, sh_t *sh)
 {
     if (ac == 1) {
         perror(0);
+        sh->exc = 1;
         return;
     }
     dict_pop(&sh->env, av[1]);

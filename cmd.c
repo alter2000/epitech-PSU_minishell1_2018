@@ -39,5 +39,7 @@ int cmd_builtins(cmd_t *cmd, cmd_t const *bi)
 
 int cmd_exec(sh_t *sh, cmd_t *cmd)
 {
+    rmcmd(cmd);
+    sh->exc = 0;
     return 0;
 }

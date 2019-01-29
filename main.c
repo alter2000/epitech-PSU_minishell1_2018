@@ -24,13 +24,10 @@ static int loop(int ac, char **av, sh_t *sh)
         perror(0);
         exit(84);
     }
-    while (!sh->exc) {
+    while (!sh->eof) {
         curcmd = prompt(sh);
         if (!cmd_builtins(curcmd, builtins))
             cmd_exec(sh, curcmd);
-        rmcmd(curcmd);
-        if (sh->eof)
-            break;
     }
     return 0;
 }
