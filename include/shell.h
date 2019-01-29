@@ -30,4 +30,5 @@ void cmd_cd(int, char **, sh_t *);
 void cmd_exit(int, char **, sh_t *);
 
 char *mkpath(char *);
+
 #endif

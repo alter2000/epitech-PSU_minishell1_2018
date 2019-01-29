@@ -18,7 +18,13 @@
 
 static void loop(int ac, char **av, sh_t *sh)
 {
+    get_var_path(dict_get(sh->env, "PATH"));
     return;
+    if (!(isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) \
+                && isatty(STDERR_FILENO))) {
+        perror(0);
+        exit(84);
+    }
     while (!sh->exc) {
         
     }
