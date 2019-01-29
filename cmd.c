@@ -36,3 +36,8 @@ int cmd_builtins(cmd_t *cmd, cmd_t const *bi)
         }
     return i;
 }
+
+int cmd_exec(sh_t *sh, cmd_t *cmd)
+{
+    return 0;
+}

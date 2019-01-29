@@ -12,6 +12,6 @@ cmd_t *prompt(sh_t *sh)
     cmd_t *cmd;
 
     my_putstr(SHELL_PS1);
-    cmd = mkcmd(getl(STDIN_FILENO));
+    cmd = mkcmd(sh, getl(STDIN_FILENO));
     return cmd;
 }

@@ -36,4 +36,13 @@ void cmd_exit(int ac, char **av, sh_t *sh)
 {
     my_puts("exit");
     sh->exc = INT_MAX;
+    sh->eof = true;
+}
+
+void cmd_cd(int ac, char **av, sh_t *sh)
+{
+}
+
+void cmd_env(int ac, char **av, sh_t *sh)
+{
 }
