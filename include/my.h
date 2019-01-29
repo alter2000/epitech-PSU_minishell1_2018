@@ -97,7 +97,7 @@ int my_printf(char const *, ...);
 unsigned long long int my_strlen(char const *);
 int my_putchar(int const);
 long long int my_putstr(char const *);
-int my_puts(char *);
+int my_puts(char const *);
 int my_numlen(long long int);
 int my_putnbr(int);
 int my_putnbr_base(int, char const *);
@@ -110,18 +110,24 @@ char *my_itoa(int);
 
 char *my_revstr(char *);
 char *my_strstr(char *, char const *);
+
+char my_toupper(const char);
+char my_tolower(const char);
 char *my_strupcase(char *);
 char *my_strlowcase(char *);
 char *my_strcapitalize(char *);
 
 int my_strcmp(char const *, char const *);
-int my_strncmp(char const *, char const *, int);
+int my_strncmp(char const *, char const *, size_t const);
 void my_showstr(char const *);
 
 char *my_strcat(char *, char const *);
-char *my_strncat(char *, char const *, int);
+char *my_strncat(char *, char const *, size_t const);
 char *my_strcpy(char *, char const *);
-char *my_strncpy(char *, char const *, int);
+char *my_strncpy(char *, char const *, size_t const);
+
+char *my_strccat(char *, char const *, char const);
+char *my_strccpy(char *, char const *, char const);
 
 int is_in(char const, char const *);
 void my_swap(int *, int *);
@@ -140,8 +146,8 @@ int my_isalpha(char);
 int my_isspace(char);
 int my_isprintable(char);
 
-char **my_str_to_word_array(char const *);
-int my_show_word_array(char const **);
+char **str_to_tab(char const *, char const *);
+int show_tab(char const **, char const *);
 void free_array(char **);
 char *my_strdup(char const *);
 void *my_memset(char *, char, size_t);

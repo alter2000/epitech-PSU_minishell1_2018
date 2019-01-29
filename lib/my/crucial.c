@@ -32,15 +32,3 @@ char *my_strdup(char const *src)
 {
     return my_strcpy(gib((my_strlen(src) + 1) * sizeof(char)), src);
 }
-
-char *my_strcpy(char *dest, char const *src)
-{
-    int i;
-
-    if (!src)
-        return dest;
-    for (i = 0; src[i]; i++)
-        dest[i] = src[i];
-    dest[i] = 0;
-    return dest;
-}

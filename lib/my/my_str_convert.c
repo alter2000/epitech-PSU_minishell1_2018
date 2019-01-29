@@ -10,7 +10,8 @@
 char *my_strcapitalize(char *str)
 {
     for (int i = 0; i < str[i]; i++)
-        if (my_isalpha(str[i]) && (i == 0 || my_isspace(str[i - 1])))
+        if (my_isalpha(str[i]) && my_islower(str[i]) \
+                && (i == 0 || my_isspace(str[i - 1])))
             str[i] -= 32;
     return str;
 }
@@ -18,16 +19,14 @@ char *my_strcapitalize(char *str)
 char *my_strlowcase(char *str)
 {
     for (int i = 0; str[i]; i++)
-        if (str[i] >= 'A' && str[i] <= 'Z')
-            str[i] -= ('a' - 'A');
+        str[i] = my_tolower(str[i]);
     return str;
 }
 
 char *my_strupcase(char *str)
 {
     for (int i = 0; str[i]; i++)
-        if (str[i] >= 'a' && str[i] <= 'z')
-            str[i] += ('a' - 'A');
+        str[i] = my_toupper(str[i]);
     return str;
 }
 
@@ -44,7 +43,7 @@ void my_showstr(char const *str)
         }
 }
 
-int my_puts(char *s)
+int my_puts(char const *s)
 {
     return my_putstr(s) + write(STDOUT_FILENO, "\n", 1);
 }

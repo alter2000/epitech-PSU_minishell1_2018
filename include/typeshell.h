@@ -15,12 +15,15 @@ struct dict {
 };
 typedef struct dict dict_t;
 
-typedef struct env {
-    dict_t *h;
-} env_t;
+typedef struct sh {
+    dict_t *env;
+    int exc;
+} sh_t;
 
 typedef struct cmd {
-    env_t *env;
+    char const *name;
+    void (*func)(int, char **, sh_t *);
+    sh_t *sh;
     char **av;
     int ac;
 } cmd_t;

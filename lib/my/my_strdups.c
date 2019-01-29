@@ -10,22 +10,23 @@
 char *my_strcat(char *dest, char const *src)
 {
     int i = 0;
-    int len = my_strlen(dest);
+    char *len = dest + my_strlen(dest);
 
-    for (; src[i]; i++)
-        dest[i + len] = src[i];
-    dest[i + len] = 0;
+    for (; src && src[i]; i++)
+        len[i] = src[i];
+    len[i] = 0;
     return dest;
 }
 
-char *my_strncat(char *dest, char const *src, int n)
+char *my_strcpy(char *dest, char const *src)
 {
-    int i = 0;
-    char *len = dest + my_strlen(dest);
+    int i;
 
-    for (; src[i] && i < n; i++)
-        len[i] = src[i];
-    len[i] = 0;
+    if (!src)
+        return dest;
+    for (i = 0; src[i]; i++)
+        dest[i] = src[i];
+    dest[i] = 0;
     return dest;
 }
 
@@ -40,7 +41,7 @@ int my_strcmp(char const *s1, char const *s2)
     return 0;
 }
 
-int my_strncmp(char const *s1, char const *s2, int n)
+int my_strncmp(char const *s1, char const *s2, size_t const n)
 {
     while (*s2 && n) {
         if (*s1 == *s2)
@@ -49,17 +50,4 @@ int my_strncmp(char const *s1, char const *s2, int n)
             return *s1 - *s2;
     }
     return 0;
-}
-
-char *my_strncpy(char *dest, char const *src, int n)
-{
-    int i = 0;
-
-    if (!src || n < 1)
-        return 0;
-    for (; src[i] && i < n; i++)
-        dest[i] = src[i];
-    if (i > n)
-        dest[i] = 0;
-    return dest;
 }
