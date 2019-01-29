@@ -11,6 +11,8 @@
     #include "my.h"
     #include "typeshell.h"
 
+    #define SHELL_PS1 ("> ")
+
 dict_t *mkdict(char **);
 void rmdict(dict_t *);
 char *dict_get(dict_t *, char const *);
@@ -20,7 +22,7 @@ char *dict_pop(dict_t **, char const *);
 char *env_get_key(char *);
 char *env_get_val(char *);
 
-cmd_t *mkcmd(char *);
+cmd_t *mkcmd(sh_t *, char *);
 void rmcmd(cmd_t *);
 
 void cmd_setenv(int, char **, sh_t *);
@@ -31,4 +33,7 @@ void cmd_exit(int, char **, sh_t *);
 
 char *mkpath(char *);
 
+cmd_t *prompt(sh_t *);
+int cmd_builtins(cmd_t *, cmd_t const *);
+int cmd_exec(sh_t *, cmd_t *);
 #endif
