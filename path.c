@@ -18,15 +18,17 @@ static bool is_path(char const *p)
 static char *fpath(char const *p, dict_t *env)
 {
     char **path = str_to_tab(dict_get(env, "PATH"), ":");
-    char *base = 0;
+    char *tmppath = 0;
 
     for (size_t i = 0; path && path[i]; i++) {
-        if (path[i])
-            base = my_strdup(path[i]);
+        tmppath = my_strcat(my_strcat(my_strcat(gib(sizeof(*tmppath) * \
+            (my_strlen(path[i]) + my_strlen(p) + 2)), path[i]), "/"), p);
+        if (!access(tmppath, X_OK))
+            break;
+        free(tmppath);
     }
     free_array(path);
-    return my_strcat(my_strcat(my_strcat(gib(sizeof(char) * \
-            (my_strlen(base) + my_strlen(p) + 2)), base), "/"), p);
+    return tmppath;
 }
 
 char *get_path(char const *p, dict_t *env)

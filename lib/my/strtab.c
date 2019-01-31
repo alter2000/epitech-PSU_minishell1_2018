@@ -20,7 +20,8 @@ static size_t count_words(char const *str, char const *key)
 {
     size_t words = 0;
 
-    for (size_t i = 0; str && str[i]; words += is_in(str[i], key), i++);
+    for (size_t i = 0; str && str[i]; i++)
+        words += is_in(str[i], key);
     return words;
 }
 
@@ -38,7 +39,7 @@ char **str_to_tab(char const * const str, char const *key)
     for (size_t word = 0; sc && *sc; sc++, i++, word = 0) {
         for (; *sc && is_in(*sc, key); sc++);
         arr[i] = gib(sizeof(*arr[i]) * (count_letters(sc, key) + 1));
-        for (; *sc && *sc != ' '; word++, sc++)
+        for (; *sc && !is_in(*sc, key); word++, sc++)
             arr[i][word] = *sc;
     }
     arr[i] = 0;
@@ -60,10 +61,14 @@ int show_tab(char const **tab, char const *sep)
 
 void free_array(char **m)
 {
-    uint_t i = 0;
+    size_t i = 0;
 
-    for (; m[i]; i++)
+    if (!m)
+        return;
+    if (*m) {
+        for (; m[i]; i++)
+            free(m[i]);
         free(m[i]);
-    free(m[i]);
+    }
     free(m);
 }

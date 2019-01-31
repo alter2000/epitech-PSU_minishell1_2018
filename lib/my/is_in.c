@@ -11,7 +11,7 @@ int is_in(char const elem, char const *set)
 {
     for (unsigned int i = 0; set && set[i]; i++)
         if (set[i] == elem)
-            return i;
+            return i + 1;
     return 0;
 }
 
