@@ -9,7 +9,9 @@
 
 int change_cwd(sh_t *sh, char *dirto)
 {
-    if (!dirto)
+    if (chdir(dirto)) {
+        perror("cd");
         return 0;
+    }
     return 1;
 }
