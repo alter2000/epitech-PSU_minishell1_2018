@@ -43,7 +43,8 @@ int cmd_exec(sh_t *sh, cmd_t *cmd)
     char *fullpath = get_path(cmd->av[0], sh->env);
 
     if (!fullpath)
-        return my_printf("command not found: %s\n", cmd->av[0]);
+        return my_fputstr("command not found: ", STDERR_FILENO) \
+                + my_fputs(cmd->av[0], STDERR_FILENO);
     rmcmd(cmd);
     sh->exc = 0;
     return 0;

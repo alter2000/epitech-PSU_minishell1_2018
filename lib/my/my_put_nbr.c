@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-int my_putnbr_base(int nb, char const *base)
+size_t my_putnbr_base(int nb, char const *base)
 {
     int b = my_strlen(base);
 
@@ -26,7 +26,7 @@ int my_putnbr_base(int nb, char const *base)
     return nb;
 }
 
-int my_putnbr(int nb)
+size_t my_putnbr(int nb)
 {
     return my_putnbr_base(nb, "0123456789");
 }

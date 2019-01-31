@@ -23,7 +23,7 @@ int my_putchar(int const c)
     return write(STDOUT_FILENO, &c, 1);
 }
 
-long long int my_putstr(char const *str)
+size_t my_putstr(char const *str)
 {
     return write(STDOUT_FILENO, str, my_strlen(str));
 }

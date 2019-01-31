@@ -22,7 +22,7 @@ int my_is_prime(int const nb)
     return prime;
 }
 
-int my_numlen(long long int n)
+size_t my_numlen(long long int n)
 {
     int len = 0;
 

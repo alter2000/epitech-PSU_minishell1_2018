@@ -43,7 +43,7 @@ void my_showstr(char const *str)
         }
 }
 
-int my_puts(char const *s)
+size_t my_puts(char const *s)
 {
     return my_putstr(s) + write(STDOUT_FILENO, "\n", 1);
 }

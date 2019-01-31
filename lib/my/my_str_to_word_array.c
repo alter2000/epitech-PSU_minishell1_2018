@@ -41,7 +41,6 @@ char **str_to_tab(char const *str, char const *key)
         arr[i] = gib((count_letters(str, key) + 1) * sizeof(*arr[i]));
         for (; *str && !is_in(*str, key); word++, str++)
             arr[i][word] = *str;
-        my_puts(arr[i]);
     }
     arr[i] = 0;
     return arr;
