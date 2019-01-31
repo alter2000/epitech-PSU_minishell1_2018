@@ -22,6 +22,8 @@ char *dict_pop(dict_t **, char const *);
 
 char *env_get_key(char *);
 char *env_get_val(char *);
+size_t env_len(dict_t *);
+char **env_to_tab(dict_t *);
 
 cmd_t *mkcmd(sh_t *, char *);
 void rmcmd(cmd_t *);

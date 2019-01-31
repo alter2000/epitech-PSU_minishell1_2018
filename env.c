@@ -20,3 +20,24 @@ char *env_get_val(char *s)
 
     return my_strcpy(gib(sizeof(char) * (my_strlen(s + idx) + 1)), s + idx);
 }
+
+size_t env_len(dict_t *env)
+{
+    size_t len = 0;
+
+    for (; env; env = env->next)
+        len++;
+    return len;
+}
+
+char **env_to_tab(dict_t *env)
+{
+    size_t i;
+    char **tab = gib(sizeof(*tab) * (env_len(env) + 1));
+
+    for (i = 0; env; env = env->next, i++)
+        tab[i] = my_strcat(my_strcat(my_strcat(gib(sizeof(char) * \
+        (my_strlen(env->k) + my_strlen(env->v) + 2)), env->k), "="), env->v);
+    tab[i] = 0;
+    return tab;
+}

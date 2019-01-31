@@ -37,15 +37,3 @@ int cmd_builtins(cmd_t *cmd, cmd_t const *bi)
         }
     return i;
 }
-
-int cmd_exec(sh_t *sh, cmd_t *cmd)
-{
-    char *fullpath = get_path(cmd->av[0], sh->env);
-
-    if (!fullpath)
-        return my_fputstr("command not found: ", STDERR_FILENO) \
-                + my_fputs(cmd->av[0], STDERR_FILENO);
-    rmcmd(cmd);
-    sh->exc = 0;
-    return 0;
-}
