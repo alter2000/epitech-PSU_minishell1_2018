@@ -23,7 +23,7 @@ int pstuff(char const *fmt, va_list ap)
 {
     unsigned int ch = 0;
 
-    for (unsigned int flag = 0, chk = 0, prec = 0, width = 0; *fmt;) {
+    for (unsigned int flag = 0, chk = 0, prec = 0, width = 0; *fmt; ) {
         if (*fmt != '%') {
             ch += my_putchar(*fmt++);
             continue;
@@ -34,15 +34,15 @@ int pstuff(char const *fmt, va_list ap)
             fmt += chk;
         } while (chk);
         width = my_isdigit(*fmt) ? my_atoi(&fmt) : 0;
-        if (*fmt == '.') {
+        if (*fmt == '.')
             prec = (my_isdigit(*++fmt)) ? my_atoi(&fmt) : 0;
-        }
-        ch += put(setlen(&fmt, &flag), *fix_flags(&flag), width, prec, ap);
+        ch += put(mkprintf_arg(setlen(&fmt, &flag), *fix_flags(&flag), \
+                    width, prec), ap);
     }
     return ch;
 }
 
-unsigned int more_extended_put(char const **fmt, va_list ap)
+static unsigned int more_extended_put(char const **fmt, va_list ap)
 {
     unsigned int ch = 0;
 
@@ -63,48 +63,46 @@ unsigned int more_extended_put(char const **fmt, va_list ap)
     return ch;
 }
 
-unsigned int extended_put(char const **fmt, unsigned int flags, \
-        unsigned int width, unsigned int prec, va_list ap)
+static unsigned int extended_put(printf_arg_t *pa, va_list ap)
 {
     unsigned int ch = 0;
 
-    switch (**fmt) {
-        case 'o': ++(*fmt);
-                ch += p_oct(flags, width, prec, ap);
+    switch (**(pa->fmt)) {
+        case 'o': ++(*(pa->fmt));
+                ch += p_oct(pa->flags, pa->width, pa->prec, ap);
                 break;
-        case 'b': ++(*fmt);
-                ch += p_bin(flags, width, prec, ap);
+        case 'b': ++(*(pa->fmt));
+                ch += p_bin(pa->flags, pa->width, pa->prec, ap);
                 break;
-        case 'c': ++(*fmt);
+        case 'c': ++(*(pa->fmt));
                 ch += my_putchar((char) va_arg(ap, int));
                 break;
-        case 's': ++(*fmt);
-                ch += p_putstr(va_arg(ap, char *), flags, width);
+        case 's': ++(*(pa->fmt));
+                ch += p_putstr(va_arg(ap, char *), pa->flags, pa->width);
                 break;
-        default: ch += more_extended_put(fmt, ap);
+        default: ch += more_extended_put(pa->fmt, ap);
     }
     return ch;
 }
 
-unsigned int put(char const **fmt, unsigned int flags, \
-        unsigned int width, unsigned int prec, va_list ap)
+unsigned int put(printf_arg_t *pa, va_list ap)
 {
     unsigned int ch = 0;
 
-    switch (**fmt) {
-        case 'd': case 'i': ++(*fmt);
-                ch += p_dec(flags, width, prec, ap);
+    switch (**(pa->fmt)) {
+        case 'd': case 'i': ++(*(pa->fmt));
+                ch += p_dec(pa->flags, pa->width, pa->prec, ap);
                 break;
-        case 'u': ++(*fmt);
-                ch += p_udec(flags, width, prec, ap);
+        case 'u': ++(*(pa->fmt));
+                ch += p_udec(pa->flags, pa->width, pa->prec, ap);
                 break;
-        case 'x': ++(*fmt);
-                ch += p_hex(flags, width, prec, ap);
+        case 'x': ++(*(pa->fmt));
+                ch += p_hex(pa->flags, pa->width, pa->prec, ap);
                 break;
-        case 'X': ++(*fmt);
-                ch += p_chex(flags, width, prec, ap);
+        case 'X': ++(*(pa->fmt));
+                ch += p_chex(pa->flags, pa->width, pa->prec, ap);
                 break;
-        default: ch += extended_put(fmt, flags, width, prec, ap);
+        default: ch += extended_put(pa, ap);
     }
     return ch;
 }

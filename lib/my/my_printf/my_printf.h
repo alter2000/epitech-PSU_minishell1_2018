@@ -6,32 +6,41 @@
 */
 
 #ifndef MY_PRINTF_H
-#    define MY_PRINTF_H
+    #define MY_PRINTF_H
 
-#    include <stdarg.h>
+    #include <stdarg.h>
 
-/* like UNIX permissions weeeee */
-#    define F_HASH  (1U <<  0U)
-#    define F_ZERO  (1U <<  1U)
-#    define F_LEFT  (1U <<  2U)
-#    define F_SPACE (1U <<  3U)
-#    define F_PLUS  (1U <<  4U)
+    /* like UNIX permissions weeeee */
+    #define F_HASH  (1U <<  0U)
+    #define F_ZERO  (1U <<  1U)
+    #define F_LEFT  (1U <<  2U)
+    #define F_SPACE (1U <<  3U)
+    #define F_PLUS  (1U <<  4U)
 
-#    define F_UPPER (1U <<  5U)
-#    define F_CHAR  (1U <<  6U)
-#    define F_SHORT (1U <<  7U)
-#    define F_LONG  (1U <<  8U)
-#    define F_LLONG (1U <<  9U)
+    #define F_UPPER (1U <<  5U)
+    #define F_CHAR  (1U <<  6U)
+    #define F_SHORT (1U <<  7U)
+    #define F_LONG  (1U <<  8U)
+    #define F_LLONG (1U <<  9U)
 
-#    define START_BITMASK_SWITCH(x) \
+    #define START_BITMASK_SWITCH(x) \
     for (size_t bit = 1; bit <= x; bit <<= 1) switch (bit)
+
+typedef struct printf_helper {
+    char const **fmt;
+    unsigned int flags;
+    unsigned int prec;
+    unsigned int width;
+} printf_arg_t;
 
 // my_printf.c
 int my_printf(char const *, ...);
 
 int pstuff(char const *, va_list);
-unsigned int put(char const **, unsigned int, \
-        unsigned int, unsigned int, va_list);
+unsigned int put(printf_arg_t *, va_list);
+
+printf_arg_t *mkprintf_arg(char const **, unsigned int, \
+                unsigned int, unsigned int);
 
 char const **setlen(char const **, unsigned int *);
 void check_ptr(char const **, unsigned int *);

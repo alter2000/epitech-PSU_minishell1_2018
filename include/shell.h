@@ -8,6 +8,7 @@
 #ifndef SHELL_H
     #define SHELL_H
 
+    #include <signal.h>
     #include "my.h"
     #include "typeshell.h"
 
@@ -32,6 +33,7 @@ void cmd_cd(int, char **, sh_t *);
 void cmd_exit(int, char **, sh_t *);
 
 char *mkpath(char *);
+char *get_path(char const *, dict_t *);
 
 cmd_t *prompt(sh_t *);
 int cmd_builtins(cmd_t *, cmd_t const *);

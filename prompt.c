@@ -10,8 +10,12 @@
 cmd_t *prompt(sh_t *sh)
 {
     cmd_t *cmd;
+    char *in;
 
     my_putstr(SHELL_PS1);
-    cmd = mkcmd(sh, getl(STDIN_FILENO));
+    in = getl(STDIN_FILENO);
+    if (!in)
+        cmd_exit(0, 0, sh);
+    cmd = mkcmd(sh, in);
     return cmd;
 }

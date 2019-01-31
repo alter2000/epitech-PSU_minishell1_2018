@@ -21,7 +21,7 @@ static int loop(int ac, char **av, sh_t *sh)
     cmd_t *curcmd;
 
     if (!(isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))) {
-        perror(0);
+        perror("loop");
         exit(84);
     }
     while (!sh->eof) {
@@ -32,11 +32,21 @@ static int loop(int ac, char **av, sh_t *sh)
     return 0;
 }
 
+
+void sighandle_int(int sig)
+{
+    if (sig != SIGINT)
+        return;
+    my_printf("\n%s", SHELL_PS1);
+}
+
 int main(int ac, char **av, char **env)
 {
     sh_t sh = {mkdict(env), 0, false};
-    int ret = loop(ac, av, &sh);
+    int ret;
 
+    signal(SIGINT, sighandle_int);
+    ret = loop(ac, av, &sh);
     rmdict(sh.env);
     return ret;
 }

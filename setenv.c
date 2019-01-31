@@ -18,14 +18,14 @@ void cmd_setenv(int ac, char **av, sh_t *sh)
         sh->exc = 0;
     } else {
         sh->exc = 1;
-        perror(0);
+        perror("setenv");
     }
 }
 
 void cmd_unsetenv(int ac, char **av, sh_t *sh)
 {
     if (ac == 1) {
-        perror(0);
+        perror("unsetenv");
         sh->exc = 1;
         return;
     }
