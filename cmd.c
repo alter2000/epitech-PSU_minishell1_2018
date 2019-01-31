@@ -20,9 +20,9 @@ cmd_t *mkcmd(sh_t *sh, char *c)
     cmd_t *cmd = gib(sizeof(*cmd));
 
     cmd->av = str_to_tab(c, " \t\n");
-    cmd->ac = my_strlen((char *)cmd->av);
+    cmd->ac = my_tablen((char const **)cmd->av);
     cmd->sh = sh;
-    cmd->name = my_strdup(cmd->av ? (char const *)cmd->av : "NONECMD");
+    cmd->name = my_strdup(*cmd->av ? *cmd->av : "NONECMD");
     return cmd;
 }
 
@@ -30,11 +30,12 @@ int cmd_builtins(cmd_t *cmd, cmd_t const *bi)
 {
     int i = 0;
 
-    my_printf("cmd_builtins: current: %s\n", cmd->name);
+    show_tab((const char **)cmd->av, "\n");
+    my_printf("cmd_builtins: current: %s,\targs: %d\n", cmd->name, cmd->ac);
     for (; bi[i].name; i++)
         if (!my_strcmp(bi[i].name, cmd->name)) {
             bi[i].func(cmd->ac, cmd->av, cmd->sh);
             return i;
         }
-    return i;
+    return 0;
 }

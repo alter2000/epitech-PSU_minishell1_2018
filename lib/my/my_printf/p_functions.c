@@ -49,10 +49,9 @@ unsigned int p_putnbr(long long int n, char const * const base, \
 
 unsigned int p_showstr(char const *str)
 {
-    unsigned int i = 0;
     unsigned int c = 0;
 
-    for (; str && str[i]; i++) {
+    for (unsigned int i = 0; str && str[i]; i++) {
         if (my_isprintable(str[i]))
             c += my_putchar(str[i]);
         else {

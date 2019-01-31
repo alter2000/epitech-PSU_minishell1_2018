@@ -51,6 +51,7 @@ unsigned int p_putnbr(long long int, char const * const, int const);
 unsigned int p_uputnbr(unsigned long long int, char const * const, int const);
 unsigned int p_showstr(char const *);
 unsigned int p_showptr(long long int);
+unsigned int p_showraw(char const *);
 unsigned int p_putstr(char const *, unsigned int, unsigned int);
 
 unsigned int p_dec(unsigned int, unsigned int, unsigned int, va_list);

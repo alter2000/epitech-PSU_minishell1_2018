@@ -80,6 +80,9 @@ static unsigned int extended_put(printf_arg_t *pa, va_list ap)
         case 's': ++(*(pa->fmt));
                 ch += p_putstr(va_arg(ap, char *), pa->flags, pa->width);
                 break;
+        case 'r': ++(*(pa->fmt));
+                ch += p_showraw(va_arg(ap, char *));
+                break;
         default: ch += more_extended_put(pa->fmt, ap);
     }
     return ch;

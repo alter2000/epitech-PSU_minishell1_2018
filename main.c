@@ -32,7 +32,6 @@ static int loop(int ac, char **av, sh_t *sh)
     return 0;
 }
 
-
 void sighandle_int(int sig)
 {
     if (sig != SIGINT)

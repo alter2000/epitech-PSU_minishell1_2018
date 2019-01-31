@@ -7,9 +7,9 @@
 
 #include "my.h"
 
-unsigned long long int my_strlen(char const *str)
+size_t my_strlen(char const *str)
 {
-    unsigned long long int i = 0;
+    size_t i = 0;
 
     while (str && str[i])
         i++;

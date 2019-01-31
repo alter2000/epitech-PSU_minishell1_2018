@@ -16,6 +16,7 @@ cmd_t *prompt(sh_t *sh)
     in = getl(STDIN_FILENO);
     if (!in)
         cmd_exit(0, 0, sh);
-    cmd = mkcmd(sh, in);
+    cmd = mkcmd(sh, my_strdup(in));
+    free(in);
     return cmd;
 }

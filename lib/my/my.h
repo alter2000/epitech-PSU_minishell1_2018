@@ -93,7 +93,7 @@ void *list_pop_a_tail(list_t *);
 
 int my_printf(char const *, ...);
 
-unsigned long long int my_strlen(char const *);
+size_t my_strlen(char const *);
 int my_putchar(int const);
 size_t my_putstr(char const *);
 size_t my_puts(char const *);
@@ -150,6 +150,7 @@ int my_isprintable(char);
 
 char **str_to_tab(char const * const, char const *);
 int show_tab(char const **, char const *);
+size_t my_tablen(char const **);
 void free_array(char **);
 char *my_strdup(char const *);
 void *my_memset(char *, char, size_t);

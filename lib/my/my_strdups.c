@@ -9,10 +9,10 @@
 
 char *my_strcat(char *dest, char const *src)
 {
-    int i = 0;
+    size_t i;
     char *len = dest + my_strlen(dest);
 
-    for (; src && src[i]; i++)
+    for (i = 0; src && src[i]; i++)
         len[i] = src[i];
     len[i] = 0;
     return dest;
@@ -20,7 +20,7 @@ char *my_strcat(char *dest, char const *src)
 
 char *my_strcpy(char *dest, char const *src)
 {
-    int i;
+    size_t i;
 
     if (!src)
         return dest;

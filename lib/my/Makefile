@@ -31,6 +31,8 @@ clean:
 fclean: clean
 	@rm -f ../../include/my.h
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY: all obj link clean fclean re debug
