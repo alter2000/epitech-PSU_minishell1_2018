@@ -30,6 +30,7 @@ int cmd_builtins(cmd_t *cmd, cmd_t const *bi)
 {
     int i = 0;
 
+    my_printf("cmd_builtins: current: %s\n", cmd->name);
     for (; bi[i].name; i++)
         if (!my_strcmp(bi[i].name, cmd->name)) {
             bi[i].func(cmd->ac, cmd->av, cmd->sh);

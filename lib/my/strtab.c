@@ -24,22 +24,23 @@ static size_t count_words(char const *str, char const *key)
     return words;
 }
 
-char **str_to_tab(char const *str, char const *key)
+char **str_to_tab(char const * const str, char const *key)
 {
-    size_t words = count_words(str, key);
-    char **arr = gib(sizeof(*arr) * (words + 2));
+    size_t words;
+    char **arr;
     size_t i = 0;
+    char const *sc = str;
 
-    if (!str || !*str) {
-        free(arr);
+    if (!sc || !*sc)
         return 0;
-    }
     if (!key)
         key = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r";
-    for (size_t word = 0; str && *str; str++, i++, word = 0) {
-        for (; *str && is_in(*str, key); str++);
-        arr[i] = gib((count_letters(str, key) + 1) * sizeof(*arr[i]));
-        for (; *str && !is_in(*str, key); word++, str++)
+    words = count_words(sc, key);
+    arr = gib(sizeof(*arr) * (words + 2));
+    for (size_t word = 0; sc && *sc; sc++, i++, word = 0) {
+        for (; *sc && is_in(*sc, key); sc++);
+        arr[i] = gib((count_letters(sc, key) + 1) * sizeof(*arr[i]));
+        for (; *sc && !is_in(*sc, key); word++, sc++)
             arr[i][word] = *str;
     }
     arr[i] = 0;
