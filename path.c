@@ -15,13 +15,6 @@ static bool is_path(char const *p)
     return false;
 }
 
-static char *merge_path(char const *base, char const *p)
-{
-    return my_strcat(my_strcat(my_strcat( \
-            gib(sizeof(char) * (my_strlen(base) + my_strlen(p) + 2)), \
-            base), "/"), p);
-}
-
 static char *fpath(char const *p, dict_t *env)
 {
     return 0;
@@ -29,11 +22,15 @@ static char *fpath(char const *p, dict_t *env)
 
 char *get_path(char const *p, dict_t *env)
 {
+    char *base;
+
     if (is_path(p)) {
-        if (*p == '/')
+        if (*p != '/') {
+            base = dict_get(env, "PWD");
+            return my_strcat(my_strcat(my_strcat(gib(sizeof(char) * \
+                    (my_strlen(base) + my_strlen(p) + 2)), base), "/"), p);
+        } else
             return my_strdup(p);
-        else
-            return merge_path(dict_get(env, "PWD"), p);
     } else
         return fpath(p, env);
 }

@@ -40,30 +40,35 @@ char *dict_get(dict_t *d, char const *k)
     return 0;
 }
 
-char *dict_pop(dict_t **d, char const *k)
+char  *dict_pop(dict_t **d, char const *key)
 {
-    char *ret = 0;
+    char *val = 0;
 
-    for (dict_t *tmp; (*d) && (*d)->next; (*d) = (*d)->next)
-        if (!my_strcmp((*d)->next->k, k)) {
-            ret = (*d)->next->v;
-            tmp = (*d)->next->next;
-            free((*d)->next->k);
-            free((*d)->next);
-            (*d)->next = tmp;
+    for (dict_t *cur = *d, *prev = 0; cur; \
+            prev = cur, cur = cur->next)
+        if (!my_strcmp(cur->k, key)) {
+            if (!prev)
+                *d = cur->next;
+            else
+                prev->next = cur->next;
+            val = cur->v;
+            free(cur);
+            return val;
         }
-    return ret;
+    return val;
 }
 
 dict_t *dict_push(dict_t *d, char *key, char *val)
 {
     dict_t *tmp;
 
-    for (tmp = d; tmp; tmp = tmp->next)
-        if (!my_strcmp(tmp->k, key))
-            return d;
-    tmp->next = gib(sizeof(*tmp->next));
-    tmp->k = key;
-    tmp->v = val;
-    return d;
+    for (tmp = d; tmp && tmp->next; tmp = tmp->next)
+        if (!my_strcmp(tmp->next->k, key))
+            return tmp->next;
+    if (tmp) {
+        tmp->next = gib(sizeof(*tmp));
+        tmp->next->k = key;
+        tmp->next->v = val;
+    }
+    return tmp->next;
 }

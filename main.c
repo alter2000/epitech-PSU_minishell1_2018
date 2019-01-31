@@ -27,7 +27,7 @@ static int loop(int ac, char **av, sh_t *sh)
     while (!sh->eof) {
         curcmd = prompt(sh);
         if (!cmd_builtins(curcmd, builtins) && curcmd->ac)
-            cmd_exec(sh, curcmd);
+            cmd_exec(curcmd);
     }
     return 0;
 }

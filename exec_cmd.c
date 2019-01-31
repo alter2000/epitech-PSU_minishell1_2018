@@ -25,13 +25,13 @@ static void forky_exec(char *fp, cmd_t *cmd)
     rmcmd(cmd);
 }
 
-int cmd_exec(sh_t *sh, cmd_t *cmd)
+int cmd_exec(cmd_t *cmd)
 {
-    char *fullpath = get_path(cmd->av[0], sh->env);
+    char *fullpath = get_path(cmd->av[0], cmd->sh->env);
 
     if (!fullpath)
-        return my_fputstr("command not found: ", STDERR_FILENO) \
-                + my_fputs(cmd->av[0], STDERR_FILENO);
+        return my_fputstr(cmd->name, STDERR_FILENO) + \
+            my_fputs(": Command not found.", STDERR_FILENO);
     forky_exec(fullpath, cmd);
     return 0;
 }

@@ -11,7 +11,7 @@ void cmd_setenv(int ac, char **av, sh_t *sh)
 {
     if (ac == 1) {
         for (dict_t *d = sh->env; d; d = d->next)
-            my_printf("%s=%S\n", d->k, d->v);
+            my_printf("%s=%r\n", d->k, d->v);
         sh->exc = 0;
     } else if (ac == 3) {
         dict_push(sh->env, my_strdup(av[1]), my_strdup(av[2]));
@@ -46,4 +46,7 @@ void cmd_cd(int ac, char **av, sh_t *sh)
 
 void cmd_env(int ac, char **av, sh_t *sh)
 {
+    for (dict_t *d = sh->env; d; d = d->next)
+        my_printf("%s=%s\n", d->k, d->v);
+    sh->exc = 0;
 }
