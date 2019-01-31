@@ -36,9 +36,12 @@ char **str_to_tab(char const * const str, char const *key)
     if (!key || !*key)
         key = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r";
     arr = gib(sizeof(*arr) * (count_words(sc, key) + 2));
-    for (size_t word = 0; sc && *sc; sc++, i++, word = 0) {
+    for (size_t word = 0; *sc; i++, word = 0) {
         for (; *sc && is_in(*sc, key); sc++);
-        arr[i] = gib(sizeof(*arr[i]) * (count_letters(sc, key) + 1));
+        if (sc)
+            arr[i] = gib(sizeof(*arr[i]) * (count_letters(sc, key) + 1));
+        else
+            break;
         for (; *sc && !is_in(*sc, key); word++, sc++)
             arr[i][word] = *sc;
     }
