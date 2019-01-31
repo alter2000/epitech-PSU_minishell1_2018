@@ -25,7 +25,7 @@ typedef struct sh {
 
 typedef struct cmd {
     char *name;
-    void (*func)(int, char **, sh_t *);
+    int (*func)(int, char **, sh_t *);
     sh_t *sh;
     char **av;
     int ac;
