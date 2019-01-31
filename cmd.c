@@ -22,7 +22,7 @@ cmd_t *mkcmd(sh_t *sh, char *c)
     cmd->av = str_to_tab(c, " \t\n");
     cmd->ac = my_tablen((char const **)cmd->av);
     cmd->sh = sh;
-    cmd->name = my_strdup(*cmd->av ? *cmd->av : "NONECMD");
+    cmd->name = my_strdup(cmd->av ? *cmd->av : "NONECMD");
     return cmd;
 }
 
