@@ -20,7 +20,7 @@ static void forky_exec(char *fp, cmd_t *cmd)
     if (!pid) {
         execve(fp, cmd->av, env_to_tab(cmd->sh->env));
         perror("forky_exec");
-        exit(84);
+        exit(0);
     }
     rmcmd(cmd);
 }
@@ -29,9 +29,11 @@ int cmd_exec(cmd_t *cmd)
 {
     char *fullpath = get_path(cmd->av[0], cmd->sh->env);
 
-    if (!fullpath)
-        return my_fputstr(cmd->name, STDERR_FILENO) + \
+    if (!fullpath || !*fullpath)
+        return my_fputstr(cmd->av[0], STDERR_FILENO) + \
             my_fputs(": Command not found.", STDERR_FILENO);
-    forky_exec(fullpath, cmd);
-    return 0;
+    else {
+        forky_exec(fullpath, cmd);
+        return 0;
+    }
 }

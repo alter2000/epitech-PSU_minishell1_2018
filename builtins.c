@@ -39,7 +39,8 @@ int cmd_unsetenv(int ac, char **av, sh_t *sh)
 
 int cmd_exit(int ac, char **av, sh_t *sh)
 {
-    my_puts("exit");
+    if (isatty(STDOUT_FILENO))
+        my_puts("exit");
     sh->exc = INT_MAX;
     sh->eof = true;
     return 0;

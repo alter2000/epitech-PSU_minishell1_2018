@@ -12,10 +12,13 @@ cmd_t *prompt(sh_t *sh)
     cmd_t *cmd;
     char *in;
 
-    my_putstr(SHELL_PS1);
+    if (isatty(STDOUT_FILENO))
+        my_putstr(SHELL_PS1);
     in = getl(STDIN_FILENO);
     if (!in)
         cmd_exit(0, 0, sh);
+    if (isatty(STDOUT_FILENO))
+        my_puts("");
     cmd = mkcmd(sh, str_to_tab(in, " \t\n"));
     free(in);
     return cmd;
