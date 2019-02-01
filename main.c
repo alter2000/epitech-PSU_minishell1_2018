@@ -20,10 +20,6 @@ static int loop(int ac, char **av, sh_t *sh)
 {
     cmd_t *curcmd;
 
-    if (!(isatty(STDOUT_FILENO))) {
-        perror("loop");
-        exit(84);
-    }
     while (!sh->eof) {
         curcmd = prompt(sh);
         if (!cmd_builtins(curcmd, builtins) && curcmd->ac)
