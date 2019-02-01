@@ -9,10 +9,18 @@
 #include <string.h>
 #include "shell.h"
 
-static void handle_sigs(int s)
+static void handle_sigs(int s, sh_t *sh)
 {
-    if (WIFSIGNALED(s))
-        my_fputs((char const *)strsignal(WTERMSIG(s)), STDERR_FILENO);
+    if (WIFEXITED(s)) {
+        sh->exc = WEXITSTATUS(s);
+        return;
+    }
+    if (WIFSIGNALED(s)) {
+        my_fputstr(strsignal(WTERMSIG(s)), STDERR_FILENO);
+        if (WCOREDUMP(s))
+            my_fputstr(" (core dumped)", STDERR_FILENO);
+        my_fputstr("\n", STDERR_FILENO);
+    }
 }
 
 static void forky_exec(char *fp, cmd_t *cmd)
@@ -29,7 +37,7 @@ static void forky_exec(char *fp, cmd_t *cmd)
         perror("forky_exec");
         exit(84);
     }
-    handle_sigs(s);
+    handle_sigs(s, cmd->sh);
     rmcmd(cmd);
 }
 
