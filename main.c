@@ -20,7 +20,7 @@ static int loop(int ac, char **av, sh_t *sh)
 {
     cmd_t *curcmd;
 
-    if (!(isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))) {
+    if (!(isatty(STDOUT_FILENO))) {
         perror("loop");
         exit(84);
     }
