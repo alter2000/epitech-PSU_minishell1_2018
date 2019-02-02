@@ -25,9 +25,8 @@ void *regib(char *s, int extra)
 
 size_t my_tablen(char const **t)
 {
-    size_t i = 0;
+    size_t i;
 
-    while (t && t[i])
-        i++;
+    for (i = 0; t && t[i] && *t[i]; i++);
     return i;
 }

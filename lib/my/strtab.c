@@ -8,24 +8,24 @@
 #include <stdlib.h>
 #include "my.h"
 
-static size_t count_letters(char const *str, char const *key)
+static size_t count_letters(char const *str, bool (*keyv)(char))
 {
     size_t letters = 0;
 
-    for (; str && str[letters] && !is_in(str[letters], key); letters++);
+    for (; str && str[letters] && !keyv(str[letters]); letters++);
     return letters;
 }
 
-static size_t count_words(char const *str, char const *key)
+static size_t count_words(char const *str, bool (*keyv)(char))
 {
     size_t words = 0;
 
     for (size_t i = 0; str && str[i]; i++)
-        words += is_in(str[i], key);
+        words += !!keyv(str[i]);
     return words;
 }
 
-char **str_to_tab(char const * const str, char const *key)
+char **str_to_tab(char const * const str, bool (*keyv)(char))
 {
     char **arr;
     size_t i = 0;
@@ -33,16 +33,14 @@ char **str_to_tab(char const * const str, char const *key)
 
     if (!sc || !*sc)
         return 0;
-    if (!key || !*key)
-        key = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r";
-    arr = gib(sizeof(*arr) * (count_words(sc, key) + 2));
+    arr = gib(sizeof(*arr) * (count_words(sc, keyv) + 2));
     for (size_t word = 0; *sc; i++, word = 0) {
-        for (; *sc && is_in(*sc, key); sc++);
-        if (sc)
-            arr[i] = gib(sizeof(*arr[i]) * (count_letters(sc, key) + 1));
+        for (; *sc && keyv(*sc); sc++);
+        if (*sc)
+            arr[i] = gib(sizeof(*arr[i]) * (count_letters(sc, keyv) + 1));
         else
             break;
-        for (; *sc && !is_in(*sc, key); word++, sc++)
+        for (; *sc && !keyv(*sc); word++, sc++)
             arr[i][word] = *sc;
     }
     arr[i] = 0;

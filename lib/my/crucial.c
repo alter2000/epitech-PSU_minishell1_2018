@@ -9,10 +9,9 @@
 
 size_t my_strlen(char const *str)
 {
-    size_t i = 0;
+    size_t i;
 
-    while (str && str[i])
-        i++;
+    for (i = 0; str && str[i]; i++);
     return i;
 }
 

@@ -148,7 +148,7 @@ int my_isalpha(char);
 int my_isspace(char);
 int my_isprintable(char);
 
-char **str_to_tab(char const * const, char const *);
+char **str_to_tab(char const * const, bool (*)(char));
 int show_tab(char const **, char const *);
 size_t my_tablen(char const **);
 void free_array(char **);

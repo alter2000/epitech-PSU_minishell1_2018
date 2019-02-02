@@ -27,10 +27,10 @@ static void forky_exec(char *fp, cmd_t *cmd)
     if (pid > 0)
         wait(&s);
     if (pid < 0)
-        perror("forky_exec");
+        perror("");
     if (!pid) {
         execve(fp, cmd->av, env_to_tab(cmd->sh->env));
-        perror("forky_exec");
+        perror("");
         exit(84);
     }
     if (WIFEXITED(s)) {

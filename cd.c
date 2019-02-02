@@ -13,5 +13,7 @@ int change_cwd(sh_t *sh, char *dirto)
         perror("cd");
         return 0;
     }
+    dict_push(sh->env, "OLDPWD", dict_get(sh->env, "PWD"));
+    dict_push(sh->env, "PWD", dirto);
     return 1;
 }
