@@ -63,8 +63,10 @@ dict_t *dict_push(dict_t *d, char *key, char *val)
     dict_t *tmp;
 
     for (tmp = d; tmp && tmp->next; tmp = tmp->next)
-        if (!my_strcmp(tmp->next->k, key))
+        if (!my_strcmp(tmp->next->k, key)) {
+            tmp->next->v = val;
             return tmp->next;
+        }
     if (tmp) {
         tmp->next = gib(sizeof(*tmp));
         tmp->next->k = key;

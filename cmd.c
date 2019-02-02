@@ -31,6 +31,7 @@ int cmd_builtins(cmd_t *cmd, cmd_t const *bi)
     int i = 0;
 
     for (; bi[i].name && cmd->ac; i++)
+        // TODO
         if (!my_strcmp(bi[i].name, cmd->name)) {
             bi[i].func(cmd->ac, cmd->av, cmd->sh);
             return i + 1;

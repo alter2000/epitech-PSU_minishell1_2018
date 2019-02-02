@@ -32,13 +32,10 @@ char *my_strcpy(char *dest, char const *src)
 
 int my_strcmp(char const *s1, char const *s2)
 {
-    while (*s2) {
-        if (*s1 == *s2)
-            return my_strcmp((s1 + 1), (s2 + 1));
-        else
-            return *s1 - *s2;
-    }
-    return 0;
+    if (!s1 || !s2)
+        return 0;
+    for (; *s1 && *s2 && (*s1 == *s2); s1++, s2++);
+    return *(unsigned char const*)s1 - *(unsigned char const*)s2;
 }
 
 int my_strncmp(char const *s1, char const *s2, size_t const n)
