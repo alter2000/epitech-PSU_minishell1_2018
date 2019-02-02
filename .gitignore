@@ -4,7 +4,7 @@ tags
 **/libmy.a
 **/vgcore*
 mysh
-idk.c
+idk.*
 **/*.out
 unit_tests
 tags
