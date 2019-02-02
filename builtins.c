@@ -15,6 +15,11 @@ int cmd_setenv(int ac, char **av, sh_t *sh)
         sh->exc = 0;
         return 0;
     } else if (ac == 2 || ac == 3) {
+        if (*av[1] == '-') {
+            my_fputs("setenv: Variable name must begin with a letter", 2);
+            sh->exc = 1;
+            return 1;
+        }
         dict_push(sh->env, my_strdup(av[1]), my_strdup(ac == 2 ? "" : av[2]));
         sh->exc = 0;
         return 0;
@@ -32,7 +37,8 @@ int cmd_unsetenv(int ac, char **av, sh_t *sh)
         sh->exc = 1;
         return 0;
     }
-    dict_pop(&sh->env, av[1]);
+    for (int i = 1; i < ac; i++)
+        dict_pop(&sh->env, av[i]);
     sh->exc = 0;
     return 0;
 }
