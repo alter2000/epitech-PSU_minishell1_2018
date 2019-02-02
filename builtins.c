@@ -14,13 +14,13 @@ int cmd_setenv(int ac, char **av, sh_t *sh)
             my_printf("%s=%r\n", d->k, d->v);
         sh->exc = 0;
         return 0;
-    } else if (ac == 3) {
-        dict_push(sh->env, my_strdup(av[1]), my_strdup(av[2]));
+    } else if (ac == 2 || ac == 3) {
+        dict_push(sh->env, my_strdup(av[1]), my_strdup(ac == 2 ? "" : av[2]));
         sh->exc = 0;
         return 0;
     } else {
+        my_fputs("setenv: Too many arguments.", STDERR_FILENO);
         sh->exc = 1;
-        perror("setenv");
         return 1;
     }
 }
@@ -28,7 +28,7 @@ int cmd_setenv(int ac, char **av, sh_t *sh)
 int cmd_unsetenv(int ac, char **av, sh_t *sh)
 {
     if (ac == 1) {
-        perror("unsetenv");
+        my_fputs("unsetenv: Too few arguments.", STDERR_FILENO);
         sh->exc = 1;
         return 0;
     }
