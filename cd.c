@@ -12,7 +12,6 @@ int change_cwd(sh_t *sh, char *dirto)
     char p[PATH_MAX * 2] = {0};
     char *pkek = getcwd(p, sizeof(p));
 
-    my_puts("cd: got path	");
     my_puts(dirto);
     if (chdir(dirto) || !pkek) {
         perror("cd");
