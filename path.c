@@ -25,7 +25,7 @@ static char *fpath(char const *p, dict_t *env)
     char **path = str_to_tab(dict_get(env, "PATH"), is_colon);
     char *tmppath = 0;
 
-   for (size_t i = 0; path && path[i]; i++) {
+    for (size_t i = 0; path && path[i]; i++) {
         tmppath = my_strcat(my_strcat(my_strcat(gib(sizeof(*tmppath) * \
             (my_strlen(path[i]) + my_strlen(p) + 2)), path[i]), "/"), p);
         if (!access(tmppath, X_OK))
