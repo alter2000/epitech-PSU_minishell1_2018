@@ -54,7 +54,7 @@ int cmd_exit(int ac, char **av, sh_t *sh)
 
 int cmd_cd(int ac, char **av, sh_t *sh)
 {
-    char up[PATH_MAX] = {0};
+    char up[PATH_MAX * 2] = {0};
 
     if (ac == 1 || (ac == 2 && !my_strcmp(av[1], "~")))
         return change_cwd(sh, dict_get(sh->env, "HOME"));
