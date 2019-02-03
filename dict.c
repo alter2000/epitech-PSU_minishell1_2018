@@ -44,8 +44,7 @@ char  *dict_pop(dict_t **d, char const *key)
 {
     char *val = 0;
 
-    for (dict_t *cur = *d, *prev = 0; cur; \
-            prev = cur, cur = cur->next)
+    for (dict_t *cur = *d, *prev = 0; cur; prev = cur, cur = cur->next)
         if (!my_strcmp(cur->k, key)) {
             if (!prev)
                 *d = cur->next;
