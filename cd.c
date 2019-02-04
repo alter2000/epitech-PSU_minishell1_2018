@@ -14,6 +14,7 @@ int change_cwd(sh_t *sh, char *dirto)
 
     if (chdir(dirto) || !pkek) {
         perror(dirto);
+        sh->exc = 1;
         return 0;
     }
     dict_push(sh->env, "OLDPWD", my_strdup(p));
