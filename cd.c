@@ -12,9 +12,8 @@ int change_cwd(sh_t *sh, char *dirto)
     char p[PATH_MAX * 2] = {0};
     char *pkek = getcwd(p, sizeof(p));
 
-    my_puts(dirto);
     if (chdir(dirto) || !pkek) {
-        perror("cd");
+        perror(dirto);
         return 0;
     }
     dict_push(sh->env, "OLDPWD", my_strdup(p));
