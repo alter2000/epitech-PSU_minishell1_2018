@@ -100,6 +100,7 @@ size_t my_puts(char const *);
 size_t my_fputstr(char const *, int const);
 size_t my_fputs(char const *, int const);
 int my_fputchar(char const, int const);
+int my_vfputstr(int const, size_t const, ...);
 size_t my_numlen(long long int);
 size_t my_putnbr(int);
 size_t my_putnbr_base(int, char const *);
