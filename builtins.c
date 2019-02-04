@@ -15,7 +15,7 @@ int cmd_setenv(int ac, char **av, sh_t *sh)
         sh->exc = 0;
         return 0;
     } else if (ac == 2 || ac == 3) {
-        if (*av[1] == '-') {
+        if (!my_isupper(*av[1]) && !my_islower(*av[1])) {
             my_fputs("setenv: Variable name must begin with a letter", 2);
             sh->exc = 1;
             return 1;
