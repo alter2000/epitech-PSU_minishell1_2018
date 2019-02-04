@@ -13,7 +13,7 @@ static void handle_sigs(int s, sh_t *sh)
 {
     if (WIFSIGNALED(s) && WTERMSIG(s) != SIGFPE) {
         my_fputstr(strsignal(WTERMSIG(s)), STDERR_FILENO);
-    } else if (WTERMSIG(s) != SIGFPE)
+    } else if (WTERMSIG(s) == SIGFPE)
         my_fputstr("Floating exception", STDERR_FILENO);
     if (WCOREDUMP(s))
         my_fputstr(" (core dumped)", STDERR_FILENO);
