@@ -42,5 +42,7 @@ int cmd_exec(cmd_t *);
 char *get_path(char *, dict_t *);
 
 cmd_t *prompt(sh_t *);
+bool setenv_is_sane(char const *);
+int sh_setexc(sh_t *, int);
 
 #endif

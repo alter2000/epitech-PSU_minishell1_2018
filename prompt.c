@@ -7,6 +7,25 @@
 
 #include "shell.h"
 
+bool setenv_is_sane(char const *val)
+{
+    if (!my_isupper(*val) && !my_islower(*val))
+        return !my_fputs("setenv: Variable name must begin with a letter", \
+                STDERR_FILENO);
+    for (; val && *val; val++)
+        if (!(my_isalpha(*val) || my_isdigit(*val) \
+                || *val == '.' || *val == '_'))
+            return !my_fputs("setenv: Variable name must contain "
+                            "alphanumeric characters", STDERR_FILENO);
+    return 1;
+}
+
+int sh_setexc(sh_t *sh, int c)
+{
+    sh->exc = c;
+    return sh->exc;
+}
+
 static bool is_ifs(char c)
 {
     return (c == ' ' || c == '\t' || c == '\n');

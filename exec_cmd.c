@@ -35,7 +35,7 @@ static void forky_exec(char *fp, cmd_t *cmd)
         exit(84);
     }
     if (WIFEXITED(s)) {
-        cmd->sh->exc = WEXITSTATUS(s);
+        sh_setexc(cmd->sh, WEXITSTATUS(s));
     } else
         handle_sigs(s, cmd->sh);
     rmcmd(cmd);
