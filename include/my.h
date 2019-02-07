@@ -23,7 +23,7 @@
     #endif // READ_SIZE
 
     #ifndef PATH_MAX
-        #define PATH_MAX (1024)
+        #define PATH_MAX (8192)
     #endif
 
     #define MIN(i, j) (((i) < (j)) ? (i) : (j))
