@@ -6,25 +6,29 @@
 */
 
 #ifndef _MY_H_
-#    define _MY_H_
+    #define _MY_H_
 
-#    include <fcntl.h>
-#    include <limits.h>
-#    include <stdarg.h>
-#    include <stdbool.h>
-#    include <stddef.h>
-#    include <stdio.h>
-#    include <stdlib.h>
-#    include <sys/types.h>
-#    include <unistd.h>
+    #include <fcntl.h>
+    #include <limits.h>
+    #include <stdarg.h>
+    #include <stdbool.h>
+    #include <stddef.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <sys/types.h>
+    #include <unistd.h>
 
-#    ifndef READ_SIZE
-#        define READ_SIZE (1)
-#    endif // READ_SIZE
+    #ifndef READ_SIZE
+        #define READ_SIZE (1)
+    #endif // READ_SIZE
 
-#    define MIN(i, j) (((i) < (j)) ? (i) : (j))
-#    define MAX(i, j) (((i) > (j)) ? (i) : (j))
-#    define ABS(i)    (((i) > 0)   ? (i) : -(i))
+    #ifndef PATH_MAX
+        #define PATH_MAX (8192)
+    #endif
+
+    #define MIN(i, j) (((i) < (j)) ? (i) : (j))
+    #define MAX(i, j) (((i) > (j)) ? (i) : (j))
+    #define ABS(i)    (((i) > 0)   ? (i) : -(i))
 
 typedef unsigned long long int ull_t;
 typedef unsigned long int ul_t;
